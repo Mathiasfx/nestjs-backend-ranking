@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  username      String   @unique
+  password      String
+  displayName   String?
+  totalScore    Int      @default(0)
+  currentScores Json     @default("{}")
+  createdAt     DateTime @default(now())
+}
+
+model TriviaSettings {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  timeLimit     Int      @default(15)
+  maxQuestions  Int      @default(10)
+  pointsBase    Int      @default(100)
+  updatedAt     DateTime @updatedAt
+}
+
+model TriviaQuestion {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  question      String
+  options       String[]
+  correctAnswer String
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+}
+
+model MemotestSettings {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  pairs           Int      @default(6)
+  timeLimit       Int      @default(60)
+  pointsPerMatch  Int      @default(10)
+  penaltyPerError Int      @default(-2)
+  updatedAt       DateTime @updatedAt
+}
+
+model MemotestCard {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl  String
+  active    Boolean @default(true)
+  createdAt DateTime @default(now())
+}
