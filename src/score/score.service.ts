@@ -88,15 +88,15 @@ export class ScoreService {
       // Calculate positions considering ties
       const ranking: RankingEntry[] = [];
       let currentPosition = 1;
-      
+
       for (let i = 0; i < users.length; i++) {
         const user = users[i];
-        
+
         // If this user has a different score than the previous user, update position
         if (i > 0 && users[i - 1].totalScore !== user.totalScore) {
           currentPosition = i + 1;
         }
-        
+
         ranking.push({
           id: user.id,
           username: user.username,
@@ -150,7 +150,9 @@ export class ScoreService {
         position,
       };
     } catch (error) {
-      throw new Error(`Error al obtener posición del usuario: ${error.message}`);
+      throw new Error(
+        `Error al obtener posición del usuario: ${error.message}`,
+      );
     }
   }
 }
