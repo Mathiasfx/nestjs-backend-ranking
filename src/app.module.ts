@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ScoreModule } from './score/score.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ScoreGateway } from './score/score.gateway';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { PrismaModule } from './prisma/prisma.module';
     ScoreModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ScoreGateway],
 })
 export class AppModule {}
