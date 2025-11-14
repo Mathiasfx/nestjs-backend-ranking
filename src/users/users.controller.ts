@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 

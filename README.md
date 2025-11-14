@@ -21,6 +21,13 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+
+# Ranking Backend
+
+Este proyecto es un backend para gestión de ranking de juegos, desarrollado con NestJS. Expone una API HTTP y WebSocket para manejar usuarios, puntajes y posiciones en tiempo real. Puede integrarse fácilmente con clientes web (Angular) y juegos (Unity).
+
+---
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
@@ -28,47 +35,40 @@
 ## Project setup
 
 ```bash
-$ pnpm install
+npm install
 ```
 
 ## Compile and run the project
 
 ```bash
 # development
-$ pnpm run start
+npm run start
 
 # watch mode
-$ pnpm run start:dev
+npm run start:dev
 
 # production mode
-$ pnpm run start:prod
+npm run start:prod
 ```
 
 ## Run tests
 
 ```bash
 # unit tests
-$ pnpm run test
+npm run test
 
 # e2e tests
-$ pnpm run test:e2e
+npm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+npm run test:cov
 ```
 
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
 ## Resources
 
@@ -93,6 +93,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
 
+
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
