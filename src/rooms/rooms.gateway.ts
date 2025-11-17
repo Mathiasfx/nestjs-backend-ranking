@@ -23,7 +23,12 @@ export class RoomsGateway {
   handleJoinRoom(
     @MessageBody() data: { roomId: string; name: string },
     @ConnectedSocket() client: Socket,
-  ): { success: boolean; player: RoomPlayer } {
+  ): { success: boolean; player?: RoomPlayer; message?: string } {
+    const room = this.roomsService.getRoom(data.roomId);
+    if (room && !room.isActive && room.round > 0) {
+      // Room existe pero la partida ya terminó
+      return { success: false, message: 'La partida ya terminó o el room está cerrado.' };
+    }
     const player = this.roomsService.joinRoom(data.roomId, data.name);
     client.join(data.roomId);
     this.server.to(data.roomId).emit('playerJoined', player);
