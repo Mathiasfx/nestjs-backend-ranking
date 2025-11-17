@@ -19,21 +19,31 @@ export class RoomsGateway {
 
   constructor(private readonly roomsService: RoomsService) {}
 
-  @SubscribeMessage('joinRoom')
-  handleJoinRoom(
-    @MessageBody() data: { roomId: string; name: string },
-    @ConnectedSocket() client: Socket,
-  ): { success: boolean; player?: RoomPlayer; message?: string } {
-    const room = this.roomsService.getRoom(data.roomId);
-    if (room && !room.isActive && room.round > 0) {
-      // Room existe pero la partida ya terminó
-      return { success: false, message: 'La partida ya terminó o el room está cerrado.' };
-    }
+@SubscribeMessage('joinRoom')
+handleJoinRoom(
+  @MessageBody() data: { roomId: string; name: string },
+  @ConnectedSocket() client: Socket,
+) {
+  try {
     const player = this.roomsService.joinRoom(data.roomId, data.name);
+
+    if (!player) {
+      client.emit("joinRoomResponse", { success: false, message: "No se pudo unir" });
+      return;
+    }
+
+    // Avisamos SOLO al cliente que se unió
+    client.emit("joinRoomResponse", { success: true, player });
+
+    // Avisamos a los demás
     client.join(data.roomId);
-    this.server.to(data.roomId).emit('playerJoined', player);
-    return { success: true, player };
+    this.server.to(data.roomId).emit("playerJoined", player);
+
+  } catch (error) {
+    client.emit("joinRoomResponse", { success: false, message: error.message });
   }
+}
+
 
   private timers: Record<string, NodeJS.Timeout> = {};
 
