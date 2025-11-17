@@ -31,12 +31,12 @@ handleJoinRoom(
       client.emit("joinRoomResponse", { success: false, message: "No se pudo unir" });
       return;
     }
-
+    // Avisamos a los demás
+    client.join(data.roomId);
+    
     // Avisamos SOLO al cliente que se unió
     client.emit("joinRoomResponse", { success: true, player });
 
-    // Avisamos a los demás
-    client.join(data.roomId);
     this.server.to(data.roomId).emit("playerJoined", player);
 
   } catch (error) {
