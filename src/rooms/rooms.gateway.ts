@@ -39,14 +39,18 @@ export class RoomsGateway {
   ) {
     const started = this.roomsService.startGame(data.roomId, data.questions);
     if (started) {
-      const room = this.roomsService.getRoom(data.roomId);
-      this.server.to(data.roomId).emit('gameStarted', {
-        roomId: data.roomId,
-        question: room?.currentQuestion,
-        round: room?.round,
-        timer: data.timerSeconds || 10,
-      });
-      this.startTimer(data.roomId, data.timerSeconds || 10);
+      // Emitir countdown antes de iniciar la trivia
+      this.server.to(data.roomId).emit('countdown', { seconds: 3 });
+      setTimeout(() => {
+        const room = this.roomsService.getRoom(data.roomId);
+        this.server.to(data.roomId).emit('gameStarted', {
+          roomId: data.roomId,
+          question: room?.currentQuestion,
+          round: room?.round,
+          timer: data.timerSeconds || 10,
+        });
+        this.startTimer(data.roomId, data.timerSeconds || 10);
+      }, 3000);
     }
     return { success: started };
   }
