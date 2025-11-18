@@ -19,6 +19,11 @@ export class RoomsGateway {
 
   constructor(private readonly roomsService: RoomsService) {}
 
+    // Este método se ejecuta cada vez que un cliente se conecta al namespace /rooms
+  handleConnection(client: Socket) {
+    console.log('Cliente conectado:', client.id);
+  }
+
 @SubscribeMessage('joinRoom')
 handleJoinRoom(
   @MessageBody() data: { roomId: string; name: string },
